@@ -26,7 +26,6 @@ li {
     width: 500px;
     color: #fff;
     background-color: #af2646;
-    /* margin: 10px; */
 }
 
 .subNav {
@@ -43,13 +42,7 @@ li {
 .subNav li {
     transition: .3s;
     background-color: #5e252c;
-    /* padding: 7px 0 7px 20px; */
 }
-
-/*
-.subNav li:hover {
-    margin-left: 10px;
-}*/
 
 .hovered {
     margin-left: 10px;
@@ -82,13 +75,24 @@ li {
     padding: 20px;
 }
 
-.close {
-    position: relative;
-    top: 0;
-    left: 700px;
-    cursor: pointer;
-}
-
 #overlay > article {
     display: none;
+}
+
+article {
+    position: relative;
+}
+
+.image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.image img {
+    height: 100%;
 }
