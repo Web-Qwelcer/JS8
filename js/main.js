@@ -1,8 +1,11 @@
-let $nav_li = document.querySelectorAll('.nav>li'),
+let $nav_li = document.querySelectorAll('.nav > li'),
     $subNav = document.querySelectorAll('.subNav'),
-    $subNav_li = document.querySelectorAll('.subNav>li'),
-    $overlay = document.querySelectorAll('.overlay'),
-    $overlay_close = document.querySelector('.close')
+    $subNav_li = document.querySelectorAll('.subNav > li'),
+    $overlay = document.getElementById('overlay'),
+    $overlay_close = document.getElementById('close'),
+    overlayArticles = document.querySelectorAll('#overlay > article')
+
+let iCurrentOverlay = 0;
 
 for (let i = 0; i < $nav_li.length; i++) {
     $nav_li[i].addEventListener('click', (event)=> {
@@ -11,19 +14,34 @@ for (let i = 0; i < $nav_li.length; i++) {
 }
 
 for (let i = 0; i < $subNav_li.length; i++) {
-    // $subNav_li[i] = addEventListener('mousemove', (event)=> {
-    //     $subNav_li[i].classList.add('hovered')
-    // })
-    // $subNav_li[i] = addEventListener('mouseout', (event)=> {
-    //     $subNav_li[i].classList.remove('hovered')
-    // })
+    const currentSubNav = $subNav_li[i];
 
-    // $subNav_li[i] = addEventListener('click', (event)=> {
-    //     event.stopPropagation()
-    //     $overlay[i].classList.add('display')
-    // })
+    currentSubNav.addEventListener('mousemove', (event)=> {
+        currentSubNav.classList.add('hovered')
+    });
+
+    currentSubNav.addEventListener('mouseout', (event)=> {
+        currentSubNav.classList.remove('hovered')
+    })
+
+    currentSubNav.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        const modalWindow = Number.parseInt(currentSubNav.getAttribute('modal-data'));
+        
+        if (modalWindow >= 0) {
+            $overlay.classList.add('shown');
+            overlayArticles[iCurrentOverlay].classList.remove('display');
+            overlayArticles[modalWindow].classList.add('display');
+            iCurrentOverlay = modalWindow;
+        }
+    })
 }
 
-// $overlay_close.addEventListener('click', (event)=> {
-//     $overlay.classList.remove('display')
-// })
+$overlay.addEventListener('click', (event) => {
+   event.target.classList.remove('shown');
+}, false);
+
+$overlay_close.addEventListener('click', (event)=> {
+    $overlay.classList.remove('shown')
+})
